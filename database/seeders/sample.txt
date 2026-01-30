@@ -1,0 +1,85 @@
+UK
+Visa Application
+list:
+CAS Documents
+IHS Confirmation
+IHS Application
+UKVI Document Checklist
+UKVI Visa Application
+FS Appointment
+VFS Receipt
+
+Pre-Departure
+list:
+Visa Vignette
+Visa Confirmation letter
+Flight ticket
+Additional information
+
+On-Arrival
+BRP - Biometric Residence Permit
+NI - National Insurance
+School ID
+
+
+USA
+
+Visa Application   
+list:
+1-20 Document
+SEVIS fees receipt
+DS 160 Form
+Visa fees / CGI Federal receipt
+OFC - VAC Biometrics & Interview
+Visa Interview Guide
+
+Pre-Departure
+list:
+Visa Vignette
+Visa Confirmation letter
+Flight ticket
+Additional information
+
+On-Arrival
+list:
+School ID
+State ID
+Driving license
+
+
+CANADA
+Pre-Requests
+list:
+Unconditional Admission
+Deposit receipt
+LOA - Letter of Acceptance
+Medical report
+GIC - Guaranteed Investment Certificate
+IBC - Investment Balance Certificate
+Additional Information1
+Additional Information2
+
+Visa Application
+list:
+SDS - Student Direct Stream
+Visa application
+Visa fees receipt
+Biometrics
+VFS Services
+
+Pre-Departure
+list:
+Visa Vignette
+Visa Confirmation letter
+Flight ticket
+Additional information
+
+On-Arrival
+list:
+School ID
+MSP - BC Medical Services Plan
+SIN - Social Insurance Number
+
+
+ALTER TABLE `apply_uni_now`.`check_lists` 
+CHANGE COLUMN `type` `type` ENUM('Gathering Checklist', 'University Application', 'Pre-CAS Process', 'Financial Evidence', 'Visa Application', 'Pre Requisite', 'After I-20', 'On-Arrival', 'Pre-Departure') NULL DEFAULT NULL ;

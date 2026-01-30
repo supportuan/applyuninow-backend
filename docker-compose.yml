@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: applyuninow-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: applyuninow
+      MYSQL_USER: applyuninow_user
+      MYSQL_PASSWORD: applyuninow_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - applyuninow-network
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+
+  backend:
+    build: .
+    container_name: applyuninow-backend
+    ports:
+      - "3337:3337"
+    environment:
+      PORT: 3337
+      HOST: 0.0.0.0
+      NODE_ENV: production
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: applyuninow_user
+      DB_PASSWORD: applyuninow_pass
+      DB_DATABASE: applyuninow
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - applyuninow-network
+    volumes:
+      - ./tmp:/app/tmp
+    command: sh -c "sleep 10 && node ace migration:run --force && node server.js"
+
+volumes:
+  mysql_data:
+
+
+networks:
+  applyuninow-network:
+    driver: bridge
