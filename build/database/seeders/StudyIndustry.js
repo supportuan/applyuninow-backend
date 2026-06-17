@@ -1,0 +1,82 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Seeder_1 = __importDefault(global[Symbol.for('ioc.use')]("Adonis/Lucid/Seeder"));
+const StudyIndustry_1 = __importDefault(global[Symbol.for('ioc.use')]("App/Models/StudyIndustry"));
+class StudyIndustrySeeder extends Seeder_1.default {
+    async run() {
+        await StudyIndustry_1.default.createMany([
+            { name: 'Accounting & Finance' },
+            { name: 'Aerospace & Manufacturing Eng' },
+            { name: 'Agri, Forestry & Food' },
+            { name: 'American Studies' },
+            { name: 'Anatomy & Physiology' },
+            { name: 'Anthropology' },
+            { name: 'Architecture' },
+            { name: 'Art' },
+            { name: 'Art History' },
+            { name: 'Biosciences' },
+            { name: 'Building&Town&Country Plan' },
+            { name: 'Business & Management' },
+            { name: 'Chemical Engineering' },
+            { name: 'Chemistry' },
+            { name: 'Civil Engineering' },
+            { name: 'Classics & Ancient History' },
+            { name: 'Computer Science' },
+            { name: 'Criminology' },
+            { name: 'Dentistry' },
+            { name: 'Design & Crafts' },
+            { name: 'Development Studies' },
+            { name: 'Drama & Dance' },
+            { name: 'Earth & Marine Science' },
+            { name: 'Economics' },
+            { name: 'Education' },
+            { name: 'Electrical Engineering' },
+            { name: 'English and Creative Writing' },
+            { name: 'English Literature' },
+            { name: 'Fashion & Textiles' },
+            { name: 'Film Production' },
+            { name: 'Food Science' },
+            { name: 'Forensic Science & Archaeology' },
+            { name: 'General Engineering' },
+            { name: 'Geography&Environmental Studies' },
+            { name: 'Health' },
+            { name: 'Hhistory' },
+            { name: 'Hospatility,Event Manag&Tourism' },
+            { name: 'Hotel Management' },
+            { name: 'International Relations' },
+            { name: 'Journalism,Publishing,relations' },
+            { name: 'Law' },
+            { name: 'Life sciences' },
+            { name: 'Linguistics' },
+            { name: 'Management' },
+            { name: 'Marketing' },
+            { name: 'Material Engineering' },
+            { name: 'Mathematics' },
+            { name: 'MBA' },
+            { name: 'Mechanical Engineeirng' },
+            { name: 'Media Studies' },
+            { name: 'Medicine' },
+            { name: 'Music' },
+            { name: 'Nursing & Midwifery' },
+            { name: 'other' },
+            { name: 'Pharmacy' },
+            { name: 'Philosopy' },
+            { name: 'Physics' },
+            { name: 'Physiotherapy' },
+            { name: 'Politics' },
+            { name: 'Psychology' },
+            { name: 'Religious Studies' },
+            { name: 'Social Policy & Admin' },
+            { name: 'Social Work' },
+            { name: 'Sociology' },
+            { name: 'Sports Science' },
+            { name: 'Supply Chain & Logistics' },
+            { name: 'Veterinary Science' },
+        ]);
+    }
+}
+exports.default = StudyIndustrySeeder;
+//# sourceMappingURL=StudyIndustry.js.map

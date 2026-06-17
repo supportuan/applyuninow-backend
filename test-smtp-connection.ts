@@ -51,7 +51,7 @@ async function testSMTPConnection() {
 
     // Step 3: Get capabilities
     console.log('3️⃣ Checking server capabilities...')
-    const capabilities = transporter.transporter.auth
+    void transporter.transporter.auth
     console.log('   ✅ Server capabilities retrieved\n')
 
     // Step 4: Test sending (optional - commented out to avoid sending test emails)

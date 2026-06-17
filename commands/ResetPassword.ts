@@ -41,7 +41,7 @@ export default class ResetPassword extends BaseCommand {
         // Direct password reset (admin use)
         this.logger.info(`\n🔐 Setting new password directly...`)
         user.password = this.newPassword
-        user.token = null // Clear any existing reset token
+        user.token = null as any // Clear any existing reset token
         await user.save()
         this.logger.success(`✅ Password has been reset successfully!`)
         this.logger.info(`\n📧 New password: ${this.newPassword}`)

@@ -1,0 +1,80 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Seeder_1 = __importDefault(global[Symbol.for('ioc.use')]("Adonis/Lucid/Seeder"));
+const StudySubIndustry_1 = __importDefault(global[Symbol.for('ioc.use')]("App/Models/StudySubIndustry"));
+class StudySubIndustrySeeder extends Seeder_1.default {
+    async run() {
+        await StudySubIndustry_1.default.createMany([
+            { name: 'Agri & Forestry', industry_id: 1 },
+            { name: 'Food Science', industry_id: 1 },
+            { name: 'Architecture', industry_id: 2 },
+            { name: 'Art', industry_id: 2 },
+            { name: 'Art History', industry_id: 2 },
+            { name: 'Design & Crafts', industry_id: 2 },
+            { name: 'Drama & Dance', industry_id: 2 },
+            { name: 'Fashion & Textiles', industry_id: 2 },
+            { name: 'Film Production', industry_id: 2 },
+            { name: 'MBA', industry_id: 4 },
+            { name: 'Accounting & Finance', industry_id: 4 },
+            { name: 'Business', industry_id: 4 },
+            { name: 'Management', industry_id: 4 },
+            { name: 'Marketing', industry_id: 4 },
+            { name: 'Economics', industry_id: 4 },
+            { name: 'Supply-chain & Logistics', industry_id: 4 },
+            { name: 'Education', industry_id: 6 },
+            { name: 'English & Creative Writing', industry_id: 6 },
+            { name: 'English Literature', industry_id: 6 },
+            { name: 'Linguistics', industry_id: 6 },
+            { name: 'Aerospace & Manufacture Engineering', industry_id: 7 },
+            { name: 'Building, Town & Country planning', industry_id: 7 },
+            { name: 'Chemical Engineering', industry_id: 7 },
+            { name: 'Civil Engineering', industry_id: 7 },
+            { name: 'Electrical Engineering', industry_id: 7 },
+            { name: 'General Engineering', industry_id: 7 },
+            { name: 'Material Engineering', industry_id: 7 },
+            { name: 'Mechanical Engineering', industry_id: 7 },
+            { name: 'Anthropology', industry_id: 8 },
+            { name: 'Biosciences', industry_id: 8 },
+            { name: 'Chemistry', industry_id: 8 },
+            { name: 'Classics & Ancient History', industry_id: 8 },
+            { name: 'Earth & Marine Science', industry_id: 8 },
+            { name: 'Geography & Environmental Studies', industry_id: 8 },
+            { name: 'Hospitality', industry_id: 9 },
+            { name: 'Event Management', industry_id: 9 },
+            { name: 'Tourism', industry_id: 9 },
+            { name: 'Hotel Management ', industry_id: 9 },
+            { name: 'International Relations', industry_id: 9 },
+            { name: 'Sports Science', industry_id: 9 },
+            { name: 'Criminology', industry_id: 10 },
+            { name: 'Forensic Science & Archaeology', industry_id: 10 },
+            { name: 'Journalism', industry_id: 10 },
+            { name: 'Media Studies', industry_id: 10 },
+            { name: 'Philosophy', industry_id: 10 },
+            { name: 'Anatomy', industry_id: 11 },
+            { name: 'Physiology', industry_id: 11 },
+            { name: 'Dentistry', industry_id: 11 },
+            { name: 'Pharmacy', industry_id: 11 },
+            { name: 'Psychology', industry_id: 11 },
+            { name: 'Health', industry_id: 11 },
+            { name: 'Medicine', industry_id: 11 },
+            { name: 'Physiotherapy', industry_id: 11 },
+            { name: 'Nursing & Midwifery', industry_id: 11 },
+            { name: 'Veterinary Science', industry_id: 11 },
+            { name: 'Mathematics', industry_id: 12 },
+            { name: 'Life Sciences', industry_id: 12 },
+            { name: 'Physics', industry_id: 12 },
+            { name: 'Social Work', industry_id: 13 },
+            { name: 'Sociology', industry_id: 13 },
+            { name: 'History', industry_id: 13 },
+            { name: 'Development Studies', industry_id: 13 },
+            { name: 'Politics', industry_id: 13 },
+            { name: 'Religious Studies', industry_id: 13 },
+            { name: 'Social Policy & Admin', industry_id: 13 },
+        ]);
+    }
+}
+exports.default = StudySubIndustrySeeder;
+//# sourceMappingURL=StudySubIndustry.js.map
