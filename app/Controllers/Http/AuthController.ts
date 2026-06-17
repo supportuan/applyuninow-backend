@@ -103,7 +103,14 @@ export default class AuthController {
 
       return response.json(obj)
     } catch (exception) {
-      return response.internalServerError({ message: exception.message })
+      Logger.error('Login error: %o', {
+        message: exception?.message,
+        code: exception?.code,
+        stack: exception?.stack,
+      })
+      return response.internalServerError({
+        message: exception?.message || exception?.code || 'Unexpected error during login',
+      })
     }
   }
 
