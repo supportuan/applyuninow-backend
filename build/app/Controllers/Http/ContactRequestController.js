@@ -9,6 +9,8 @@ const Notification_1 = __importDefault(global[Symbol.for('ioc.use')]("App/Models
 const StudyArea_1 = __importDefault(global[Symbol.for('ioc.use')]("App/Models/StudyArea"));
 const StudyIndustry_1 = __importDefault(global[Symbol.for('ioc.use')]("App/Models/StudyIndustry"));
 const User_1 = __importDefault(global[Symbol.for('ioc.use')]("App/Models/User"));
+const helpers_1 = global[Symbol.for('ioc.use')]("App/Helpers/helpers");
+const Logger_1 = __importDefault(global[Symbol.for('ioc.use')]("Adonis/Core/Logger"));
 const moment_1 = __importDefault(require("moment"));
 const Validator = require('validatorjs');
 class ContactRequestController {
@@ -225,6 +227,11 @@ class ContactRequestController {
                 status: 'UN_ASSIGNED',
                 source: 'website',
             });
+            (0, helpers_1.sendLeadConfirmationEmail)({
+                email: payload.email,
+                name: payload.first_name + ' ' + payload.last_name,
+                first_name: payload.first_name,
+            });
             return response.json({ message: 'Contact request submitted Successfully' });
         }
         catch (exception) {
@@ -283,10 +290,24 @@ class ContactRequestController {
                 status: 'UN_ASSIGNED',
                 source: 'website',
             });
+            (0, helpers_1.sendLeadConfirmationEmail)({
+                email: payload.email,
+                name: payload.first_name + ' ' + payload.last_name,
+                first_name: payload.first_name,
+            });
             return response.json({ message: 'Contact request submitted Successfully' });
         }
         catch (exception) {
-            return response.internalServerError({ message: exception.message });
+            Logger_1.default.error('contact-request create failed: %o', {
+                message: exception?.message,
+                code: exception?.code,
+                sqlMessage: exception?.sqlMessage,
+                sqlState: exception?.sqlState,
+                stack: exception?.stack,
+            });
+            return response.internalServerError({
+                message: exception?.message || exception?.code || 'Contact request failed',
+            });
         }
     }
     async store({ request, response, auth }) {
@@ -602,7 +623,7 @@ class ContactRequestController {
                 email: 'required|max:150|email',
                 name: 'required|max:150',
                 phone: 'required|max:10|min:10',
-                country_id: 'required|max:200',
+                country_id: 'max:200',
             };
             const validation = new Validator(request.all(), rules);
             if (validation.fails()) {
@@ -617,7 +638,7 @@ class ContactRequestController {
                 first_name: custName[0],
                 last_name: custName[payload.name.length - 1],
                 phone: payload.phone,
-                country_id: payload.country_id,
+                country_id: payload.country_id || '',
                 education_details: [
                     {
                         passing_year: '',
@@ -659,6 +680,11 @@ class ContactRequestController {
                 asst_exam_sections: [],
                 status: 'UN_ASSIGNED',
                 source: 'website-' + sourceType,
+            });
+            (0, helpers_1.sendLeadConfirmationEmail)({
+                email: payload.email,
+                name: payload.name,
+                first_name: custName[0],
             });
             return response.json({ message: 'Contact request submitted Successfully' });
         }

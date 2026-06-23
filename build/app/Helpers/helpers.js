@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.APPLICATION_PROCESS_LIST = exports.rmdir = exports.base64ToNode = exports.zipDirectory = exports.getFilesToLocal = exports.sortCheckList = exports.sendExePasswordEmail = exports.sendPasswordEmail = exports.generatePassword = exports.nextStage = void 0;
+exports.APPLICATION_PROCESS_LIST = exports.rmdir = exports.base64ToNode = exports.zipDirectory = exports.getFilesToLocal = exports.sortCheckList = exports.sendExePasswordEmail = exports.sendLeadConfirmationEmail = exports.sendPasswordEmail = exports.generatePassword = exports.nextStage = void 0;
 const Mail_1 = __importDefault(global[Symbol.for('ioc.use')]("Adonis/Addons/Mail"));
 const stream_1 = require("stream");
 const https_1 = __importDefault(require("https"));
@@ -99,6 +99,24 @@ function sendPasswordEmail(user, password) {
     });
 }
 exports.sendPasswordEmail = sendPasswordEmail;
+function sendLeadConfirmationEmail(lead) {
+    const recipientName = lead.name || lead.first_name || 'there';
+    const htmlContent = `
+    <p>Hi <b>${recipientName}</b>,</p>
+    <p>Thank you for reaching out to ApplyUniNow. We have received your enquiry and our counselling team will get in touch with you shortly.</p>
+    <p>If you have any urgent questions in the meantime, you can write to us at <a href="mailto:support@applyuninow.com">support@applyuninow.com</a>.</p>
+    <p style="margin:0">Thank you,</p>
+    <p style="margin:0">Team ApplyUniNow</p>
+    <p style="margin:0"><a href="https://www.applyuninow.com">www.applyuninow.com</a></p>`;
+    Mail_1.default.sendLater((message) => {
+        message
+            .from('noreply@applyuninow.com')
+            .to(lead.email)
+            .subject('We received your enquiry - ApplyUniNow')
+            .html(htmlContent);
+    });
+}
+exports.sendLeadConfirmationEmail = sendLeadConfirmationEmail;
 function sendExePasswordEmail(user, password) {
     let htmlContent = `
     <p> Dear, <b>${user.name}!</b></p><br />

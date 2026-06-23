@@ -4,6 +4,8 @@ import Notification from 'App/Models/Notification'
 import StudyArea from 'App/Models/StudyArea'
 import StudyIndustry from 'App/Models/StudyIndustry'
 import User from 'App/Models/User'
+import { sendLeadConfirmationEmail } from 'App/Helpers/helpers'
+import Logger from '@ioc:Adonis/Core/Logger'
 import moment from 'moment'
 
 const Validator = require('validatorjs')
@@ -241,6 +243,11 @@ export default class ContactRequestController {
         status: 'UN_ASSIGNED',
         source: 'website',
       })
+      sendLeadConfirmationEmail({
+        email: payload.email,
+        name: payload.first_name + ' ' + payload.last_name,
+        first_name: payload.first_name,
+      })
       return response.json({ message: 'Contact request submitted Successfully' })
     } catch (exception) {
       return response.internalServerError({ message: exception.message })
@@ -305,9 +312,23 @@ export default class ContactRequestController {
         status: 'UN_ASSIGNED',
         source: 'website',
       })
+      sendLeadConfirmationEmail({
+        email: payload.email,
+        name: payload.first_name + ' ' + payload.last_name,
+        first_name: payload.first_name,
+      })
       return response.json({ message: 'Contact request submitted Successfully' })
     } catch (exception) {
-      return response.internalServerError({ message: exception.message })
+      Logger.error('contact-request create failed: %o', {
+        message: exception?.message,
+        code: exception?.code,
+        sqlMessage: exception?.sqlMessage,
+        sqlState: exception?.sqlState,
+        stack: exception?.stack,
+      })
+      return response.internalServerError({
+        message: exception?.message || exception?.code || 'Contact request failed',
+      })
     }
   }
 
@@ -692,7 +713,7 @@ export default class ContactRequestController {
         email: 'required|max:150|email',
         name: 'required|max:150',
         phone: 'required|max:10|min:10',
-        country_id: 'required|max:200',
+        country_id: 'max:200',
       }
 
       const validation = new Validator(request.all(), rules)
@@ -709,7 +730,7 @@ export default class ContactRequestController {
         first_name: custName[0],
         last_name: custName[payload.name.length - 1],
         phone: payload.phone,
-        country_id: payload.country_id,
+        country_id: payload.country_id || '',
         education_details: [
           {
             passing_year: '',
@@ -751,6 +772,11 @@ export default class ContactRequestController {
         asst_exam_sections: [],
         status: 'UN_ASSIGNED',
         source: 'website-'+sourceType,
+      })
+      sendLeadConfirmationEmail({
+        email: payload.email,
+        name: payload.name,
+        first_name: custName[0],
       })
       return response.json({ message: 'Contact request submitted Successfully' })
     } catch (exception) {

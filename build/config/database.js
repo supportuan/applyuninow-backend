@@ -16,6 +16,14 @@ const databaseConfig = {
                 password: Env_1.default.get('MYSQL_PASSWORD', ''),
                 database: Env_1.default.get('MYSQL_DB_NAME'),
             },
+            pool: {
+                min: 0,
+                max: 10,
+                idleTimeoutMillis: 30 * 1000,
+                reapIntervalMillis: 1000,
+                createTimeoutMillis: 30 * 1000,
+                acquireTimeoutMillis: 30 * 1000,
+            },
             migrations: {
                 naturalSort: true,
             },

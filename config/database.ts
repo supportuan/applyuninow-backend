@@ -42,6 +42,17 @@ const databaseConfig: DatabaseConfig = {
         password: Env.get('MYSQL_PASSWORD', ''),
         database: Env.get('MYSQL_DB_NAME'),
       },
+      pool: {
+        min: 0,
+        max: 10,
+        // Reap idle connections so MySQL's wait_timeout (default 8h, often
+        // much shorter on managed/proxied DBs) doesn't leave us holding a
+        // dead socket -> "Packets out of order" on the next query.
+        idleTimeoutMillis: 30 * 1000,
+        reapIntervalMillis: 1000,
+        createTimeoutMillis: 30 * 1000,
+        acquireTimeoutMillis: 30 * 1000,
+      },
       migrations: {
         naturalSort: true,
       },
