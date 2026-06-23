@@ -307,8 +307,8 @@ export default class ContactRequestController {
         study_attendance_type: payload.study_attendance_type || '',
         work_experince: payload.work_experince || '',
         enable_email_notification: payload.enable_email_notification || '',
-        education_details: payload.education_details,
-        asst_exam_sections: payload.asst_exam_sections,
+        education_details: payload.education_details ?? [],
+        asst_exam_sections: payload.asst_exam_sections ?? [],
         status: 'UN_ASSIGNED',
         source: 'website',
       })
