@@ -173,6 +173,10 @@ class ContactRequestController {
                 return response.badRequest(validation.errors.errors);
             }
             const payload = request.body();
+            const countryId = await Country_1.default.resolveId(payload.country_id);
+            if (!countryId) {
+                return response.badRequest({ message: 'Invalid country selected' });
+            }
             await ContactRequest_1.default.create({
                 email: payload.email,
                 name: payload.first_name + ' ' + payload.last_name,
@@ -180,7 +184,7 @@ class ContactRequestController {
                 last_name: payload.last_name,
                 phone: payload.phone,
                 level: payload.level,
-                country_id: payload.country_id,
+                country_id: countryId,
                 industry: payload.industry,
                 intake_month: payload.intake_month,
                 intake_year: payload.intake_year,
@@ -262,6 +266,10 @@ class ContactRequestController {
                 return response.badRequest(validation.errors.errors);
             }
             const payload = request.body();
+            const countryId = await Country_1.default.resolveId(payload.country_id);
+            if (!countryId) {
+                return response.badRequest({ message: 'Invalid country selected' });
+            }
             await ContactRequest_1.default.create({
                 email: payload.email,
                 name: payload.first_name + ' ' + payload.last_name,
@@ -269,7 +277,7 @@ class ContactRequestController {
                 last_name: payload.last_name,
                 phone: payload.phone,
                 level: payload.level,
-                country_id: payload.country_id,
+                country_id: countryId,
                 industry: payload.industry,
                 intake_month: payload.intake_month,
                 intake_year: payload.intake_year,
@@ -340,6 +348,10 @@ class ContactRequestController {
             if (user && user.role.slug !== 'admin') {
                 payload.assigned_to = user.id;
             }
+            const countryId = await Country_1.default.resolveId(payload.country_id);
+            if (!countryId) {
+                return response.badRequest({ message: 'Invalid country selected' });
+            }
             let lead = await ContactRequest_1.default.create({
                 email: payload.email,
                 name: payload.first_name + ' ' + payload.last_name,
@@ -347,7 +359,7 @@ class ContactRequestController {
                 last_name: payload.last_name,
                 phone: payload.phone,
                 level: payload.level,
-                country_id: payload.country_id,
+                country_id: countryId,
                 industry: payload.industry,
                 intake_month: payload.intake_month,
                 intake_year: payload.intake_year,
@@ -399,13 +411,18 @@ class ContactRequestController {
         try {
             const { contactrequest } = request;
             const payload = request.body();
+            const countryId = await Country_1.default.resolveId(payload.country_id);
+            if (!countryId) {
+                return response.badRequest({ message: 'Invalid country selected' });
+            }
+            ;
             (contactrequest.email = payload.email),
                 (contactrequest.name = payload.first_name + ' ' + payload.last_name),
                 (contactrequest.first_name = payload.first_name),
                 (contactrequest.last_name = payload.last_name),
                 (contactrequest.phone = payload.phone),
                 (contactrequest.level = payload.level),
-                (contactrequest.country_id = payload.country_id),
+                (contactrequest.country_id = countryId),
                 (contactrequest.industry = payload.industry),
                 (contactrequest.intake_month = payload.intake_month),
                 (contactrequest.intake_year = payload.intake_year),
@@ -634,13 +651,14 @@ class ContactRequestController {
             const payload = request.body();
             const custName = payload.name.split(' ');
             const sourceType = payload.sourceType || '';
+            const countryId = await Country_1.default.resolveId(payload.country_id);
             await ContactRequest_1.default.create({
                 email: payload.email,
                 name: payload.name,
                 first_name: custName[0],
                 last_name: custName[payload.name.length - 1],
                 phone: payload.phone,
-                country_id: payload.country_id || '',
+                ...(countryId ? { country_id: countryId } : {}),
                 education_details: [
                     {
                         passing_year: '',

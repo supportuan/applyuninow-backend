@@ -18,6 +18,20 @@ class Country extends Orm_1.BaseModel {
     static dropdown() {
         return this.query().where('status', '=', 1).select('name', 'id', 'currency').orderBy('name', 'asc');
     }
+    static async resolveId(value) {
+        if (value === null || value === undefined || value === '') {
+            return null;
+        }
+        const raw = String(value).trim();
+        if (/^\d+$/.test(raw)) {
+            return Number(raw);
+        }
+        const slug = raw.replace(/^static-/, '').toLowerCase();
+        const country = await this.query()
+            .whereRaw("LOWER(REPLACE(name, ' ', '-')) = ?", [slug])
+            .first();
+        return country?.id ?? null;
+    }
 }
 __decorate([
     (0, Orm_1.column)({ isPrimary: true }),

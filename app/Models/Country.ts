@@ -28,4 +28,22 @@ export default class Country extends BaseModel {
   static dropdown() {
     return this.query().where('status', '=', 1).select('name', 'id','currency').orderBy('name', 'asc')
   }
+
+  static async resolveId(value: string | number | null | undefined): Promise<number | null> {
+    if (value === null || value === undefined || value === '') {
+      return null
+    }
+
+    const raw = String(value).trim()
+    if (/^\d+$/.test(raw)) {
+      return Number(raw)
+    }
+
+    const slug = raw.replace(/^static-/, '').toLowerCase()
+    const country = await this.query()
+      .whereRaw("LOWER(REPLACE(name, ' ', '-')) = ?", [slug])
+      .first()
+
+    return country?.id ?? null
+  }
 }
