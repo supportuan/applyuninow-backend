@@ -280,7 +280,7 @@ class ContactRequestController {
                 study_duration: payload.study_duration || '',
                 study_budget: payload.study_budget || '',
                 industry_id: payload.industry_id || '',
-                study_area_id: payload.study_area_id ? payload.study_area_id : null,
+                ...(payload.study_area_id ? { study_area_id: payload.study_area_id } : {}),
                 type_of_degree: payload.type_of_degree || '',
                 study_attendance_type: payload.study_attendance_type || '',
                 work_experince: payload.work_experince || '',
@@ -361,7 +361,7 @@ class ContactRequestController {
                 enable_email_notification: payload.enable_email_notification || '',
                 education_details: payload.education_details,
                 asst_exam_sections: payload.asst_exam_sections,
-                study_area_id: payload.study_area_id ? payload.study_area_id : null,
+                ...(payload.study_area_id ? { study_area_id: payload.study_area_id } : {}),
                 status: payload.assigned_to ? 'ASSIGNED' : 'UN_ASSIGNED',
                 source: payload.source || 'others',
                 assigned_to: payload.assigned_to || null,
@@ -418,8 +418,8 @@ class ContactRequestController {
                 (contactrequest.industry_id = payload.industry_id || ''),
                 (contactrequest.type_of_degree = payload.type_of_degree || ''),
                 (contactrequest.study_area_id = payload.study_area_id
-                    ? payload.study_area_id
-                    : contactrequest.study_area_id),
+                    ? Number(payload.study_area_id)
+                    : null),
                 (contactrequest.study_attendance_type = payload.study_attendance_type || ''),
                 (contactrequest.work_experince = payload.work_experince || ''),
                 (contactrequest.enable_email_notification = payload.enable_email_notification || ''),

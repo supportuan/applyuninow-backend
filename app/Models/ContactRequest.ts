@@ -18,7 +18,7 @@ export default class ContactRequest extends Model {
   public email: string
 
   @column()
-  public study_area_id: string
+  public study_area_id: number | null
 
   @column()
   public industry_id: string

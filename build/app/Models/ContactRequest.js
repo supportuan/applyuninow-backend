@@ -161,7 +161,7 @@ __decorate([
 ], ContactRequest.prototype, "email", void 0);
 __decorate([
     (0, Orm_1.column)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], ContactRequest.prototype, "study_area_id", void 0);
 __decorate([
     (0, Orm_1.column)(),
